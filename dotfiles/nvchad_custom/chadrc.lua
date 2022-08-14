@@ -35,6 +35,11 @@ M.plugins = {
         },
       },
     },
+    ["williamboman/mason.nvim"] = {
+      ensure_installed = {
+        "omnisharp",
+      },
+    },
   },
 }
 
