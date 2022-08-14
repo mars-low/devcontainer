@@ -53,7 +53,7 @@
 	"mounts": [
 		"source=codespaces-linux-var-lib-docker,target=/var/lib/docker,type=volume",
 		"source=${localEnv:HOME}/renode-hq.worktrees,target=/workspaces/renode-hq.worktrees,type=bind,consistency=cached",
-		"source=${localEnv:HOME}/.ssh,target=/home/codespace/.ssh,type=bind,consistency=cached",
+		"source=${localEnv:HOME}/.ssh,target=/home/codespace/.ssh,type=bind,consistency=cached"
 		// "source=${localEnv:HOME}/.config/nvim,target=/home/codespace/.config/nvim,type=bind,consistency=cached",
 		// "source=${localEnv:HOME}/.config/starship.toml,target=/home/codespace/.config/starship.toml,type=bind,consistency=cached",
 		// "source=${localEnv:HOME}/.zshrc,target=/home/codespace/.zshrc,type=bind,consistency=cached",
