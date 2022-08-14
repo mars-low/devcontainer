@@ -44,6 +44,15 @@ RUN TEMP_DEB="$(mktemp)" \
     && dpkg -i "$TEMP_DEB" \
     && rm -f "$TEMP_DEB"
 
+RUN TEMP_TAR="$(mktemp)" \
+    TEMP_TIG_DIR="$(mktemp -d)" \
+    && wget -O "$TEMP_TAR" 'https://github.com/jonas/tig/releases/download/tig-2.5.6/tig-2.5.6.tar.gz' \
+    && tar -zxf "$TEMP_TAR" -C "$TEMP_TIG_DIR" \
+    && cd "${TEMP_TIG_DIR}/tig-2.5.6" \
+    && make prefix=/usr/local && make install prefix=/usr/local \
+    && cd - \
+    && rm -rf "$TEMP_TAR" "$TEMP_TIG_DIR"
+
 USER codespace
 
 ENV RUSTUP_HOME=/usr/local/rustup \
@@ -55,14 +64,25 @@ RUN cargo install --locked broot exa starship navi
 RUN go install github.com/jesseduffield/lazygit@latest \
     && go install github.com/jesseduffield/lazydocker@latest
 
-RUN git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions \
-    && git clone https://github.com/agkozak/zsh-z ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-z
+RUN git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions \
+    && git clone --depth 1 https://github.com/agkozak/zsh-z ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-z \
+    && git clone --depth 1 https://github.com/marlonrichert/zsh-autocomplete.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autocomplete
 
 ENV HOME /home/codespace
+ENV SHELL /usr/bin/zsh
 
-RUN git clone https://github.com/NvChad/NvChad $HOME/.config/nvim --depth 1
+RUN git clone --depth 1 https://github.com/NvChad/NvChad $HOME/.config/nvim
+# RUN sudo git clone --depth 1 https://github.com/radareorg/radare2 && radare2/sys/install.sh
 
 COPY --chown=codespace:codespace dotfiles/.zshrc $HOME/.zshrc
 COPY --chown=codespace:codespace dotfiles/.tmux.conf $HOME/.tmux.conf
 COPY --chown=codespace:codespace dotfiles/starship.toml $HOME/.config/starship.toml
 COPY --chown=codespace:codespace dotfiles/nvchad_custom/ $HOME/.config/nvim/lua/custom/
+
+# ARG USERNAME=codespace
+
+# RUN SNIPPET="export PROMPT_COMMAND='history -a' && export HISTFILE=/commandhistory/.zsh_history" \
+#     && sudo mkdir /commandhistory \
+#     && sudo touch /commandhistory/.zsh_history \
+#     && sudo chown -R $USERNAME /commandhistory \
+#     && echo "$SNIPPET" >> "/home/$USERNAME/.zshhrc"

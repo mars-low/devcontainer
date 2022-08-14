@@ -31,6 +31,21 @@
 				"lldb.executable": "/usr/bin/lldb",
 				"files.watcherExclude": {
 					"**/target/**": true
+				},
+				"terminal.integrated.defaultProfile.linux": "zsh",
+				"terminal.integrated.profiles.linux": {
+					"tmux": {
+						"path": "/usr/local/bin/tmux",
+						"args": [
+							"new-session",
+							"-A",
+							"-s",
+							"main"
+						]
+					}
+				},
+				"terminal.integrated.automationProfile.linux": {
+					"path": "/usr/bin/zsh"
 				}
 			},
 			
@@ -53,11 +68,8 @@
 	"mounts": [
 		"source=codespaces-linux-var-lib-docker,target=/var/lib/docker,type=volume",
 		"source=${localEnv:HOME}/renode-hq.worktrees,target=/workspaces/renode-hq.worktrees,type=bind,consistency=cached",
-		"source=${localEnv:HOME}/.ssh,target=/home/codespace/.ssh,type=bind,consistency=cached"
-		// "source=${localEnv:HOME}/.config/nvim,target=/home/codespace/.config/nvim,type=bind,consistency=cached",
-		// "source=${localEnv:HOME}/.config/starship.toml,target=/home/codespace/.config/starship.toml,type=bind,consistency=cached",
-		// "source=${localEnv:HOME}/.zshrc,target=/home/codespace/.zshrc,type=bind,consistency=cached",
-		// "source=${localEnv:HOME}/.zsh_history,target=/home/codespace/.zsh_history,type=bind,consistency=cached"
+		"source=${localEnv:HOME}/.ssh,target=/home/codespace/.ssh,type=bind,consistency=cached",
+		// "source=renode-hq-zshhistory,target=/commandhistory,type=volume"
 	],
 
 	"runArgs": [
@@ -65,12 +77,13 @@
 		"--security-opt",
 		"seccomp=unconfined",
 		"--privileged",
-		"--init"
+		"--init",
+		"--add-host=host.docker.internal:host-gateway"
 	],
 	
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
 
 	// "oryx build" will automatically install your dependencies and attempt to build your project
-	"postCreateCommand": "oryx build -p virtualenv_name=.venv --log-file /tmp/oryx-build.log --manifest-dir /tmp || echo 'Could not auto-build. Skipping.'"
+	"postCreateCommand": "sudo oryx build -p virtualenv_name=.venv --log-file /tmp/oryx-build.log --manifest-dir /tmp || echo 'Could not auto-build. Skipping.'"
 }
