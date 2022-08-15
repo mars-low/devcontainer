@@ -14,6 +14,9 @@ M.plugins = {
     ["goolord/alpha-nvim"] = {
       disable = false,
     },
+    ['folke/which-key.nvim'] = { 
+      disable = false  
+    },
     ["neovim/nvim-lspconfig"] = {
       config = function()
         require "plugins.configs.lspconfig"
@@ -43,17 +46,6 @@ M.plugins = {
   },
 }
 
---M.options = {
---  user = function()
---     require "custom.myoptions"
---  end,
---}
-
 M.mappings = require "custom.mappings"
---M.mappings.copilot = {
---    i = {
---     ["<F2>"] = {'copilot#Accept("<CR>")', opts = { expr = true } },
---    },
---}
 
 return M
