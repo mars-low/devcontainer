@@ -53,39 +53,49 @@ RUN TEMP_TAR="$(mktemp)" \
     && cd - \
     && rm -rf "$TEMP_TAR" "$TEMP_TIG_DIR"
 
+# RUN useradd -rm -d /home/ant -s /bin/bash -g root -G sudo -u 1001 ant
+# RUN useradd --create-home --shell /bin/bash
+# USER ant
+
+# RUN addgroup --system ant && useradd --create-home -g ant
+# RUN chown -R ant:ant /home/ant/
+# RUN echo 'ant  ALL=(ALL) /bin/su' >>  /etc/sudoers
+# USER ant
+# WORKDIR /home/ant
+
+RUN chown -R codespace:codespace /home/codespace/
+
 USER codespace
 
 ENV RUSTUP_HOME=/usr/local/rustup \
     CARGO_HOME=/usr/local/cargo \
     PATH=/usr/local/cargo/bin:$PATH
 
-RUN cargo install --locked broot exa starship navi
+RUN cargo install --locked broot exa starship navi fd-find
 
 RUN go install github.com/jesseduffield/lazygit@latest \
     && go install github.com/jesseduffield/lazydocker@latest
 
-RUN git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions \
-    && git clone --depth 1 https://github.com/agkozak/zsh-z ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-z \
-    && git clone --depth 1 https://github.com/marlonrichert/zsh-autocomplete.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autocomplete
+# RUN git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions \
+#     && git clone --depth 1 https://github.com/agkozak/zsh-z ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-z \
+#     && git clone --depth 1 https://github.com/marlonrichert/zsh-autocomplete.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autocomplete
 
 RUN pipx install r2env \
     && r2env init \
     && r2env add radare2@git
 
-RUN cargo install --locked fd-find
-
-ENV HOME /home/codespace
+ENV HOME /home/ant
 ENV SHELL /usr/bin/zsh
 # ARG USERNAME=codespace
 
-RUN git clone --depth 1 https://github.com/NvChad/NvChad $HOME/.config/nvim
+# RUN git clone --depth 1 https://github.com/NvChad/NvChad $HOME/.config/nvim
 
 ENV PATH="${PATH}:$HOME/.r2env/versions/radare2@git/bin/"
 
-COPY --chown=codespace:codespace dotfiles/.zshrc $HOME/.zshrc
-COPY --chown=codespace:codespace dotfiles/.tmux.conf $HOME/.tmux.conf
-COPY --chown=codespace:codespace dotfiles/starship.toml $HOME/.config/starship.toml
-COPY --chown=codespace:codespace dotfiles/nvchad_custom/ $HOME/.config/nvim/lua/custom/
+# COPY --chown=codespace:codespace dotfiles/.zshrc $HOME/.zshrc
+# COPY --chown=codespace:codespace dotfiles/.tmux.conf $HOME/.tmux.conf
+# COPY --chown=codespace:codespace dotfiles/starship.toml $HOME/.config/starship.toml
+# COPY --chown=codespace:codespace dotfiles/nvchad_custom/ $HOME/.config/nvim/lua/custom/
 
 
 # RUN SNIPPET="export PROMPT_COMMAND='history -a' && export HISTFILE=/commandhistory/.zsh_history" \
