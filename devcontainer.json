@@ -67,7 +67,8 @@
 
 	"mounts": [
 		"source=codespaces-linux-var-lib-docker,target=/var/lib/docker,type=volume",
-		"source=${localEnv:HOME}/renode-hq.worktrees,target=/workspaces/renode-hq.worktrees,type=bind,consistency=cached",
+		"source=${localEnv:HOME}/renode-hq,target=${localEnv:HOME}/renode-hq,type=bind,consistency=cached",
+		"source=${localEnv:HOME}/renode-hq.worktrees,target=${localEnv:HOME}/renode-hq.worktrees,type=bind,consistency=cached",
 		"source=${localEnv:HOME}/.ssh,target=/home/codespace/.ssh,type=bind,consistency=cached",
 		// "source=renode-hq-zshhistory,target=/commandhistory,type=volume"
 	],
@@ -83,7 +84,12 @@
 	
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
+	
+	"workspaceFolder": "/home/ant",
+	// "workspaceMount": "source=${localWorkspaceFolder}/sub-folder,target=/home/ant,type=bind,consistency=cached",
 
 	// "oryx build" will automatically install your dependencies and attempt to build your project
-	"postCreateCommand": "sudo oryx build -p virtualenv_name=.venv --log-file /tmp/oryx-build.log --manifest-dir /tmp || echo 'Could not auto-build. Skipping.'"
+	"postCreateCommand": "sudo oryx build -p virtualenv_name=.venv --log-file /tmp/oryx-build.log --manifest-dir /tmp || echo 'Could not auto-build. Skipping.'",
+	"postStartCommand": "cd && sh -c \"$(curl -fsLS https://chezmoi.io/get)\" && export PATH=$PATH:$HOME/bin && chezmoi init --apply mars-low",
+	// "postAttachCommand": "exec zsh"
 }
