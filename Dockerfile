@@ -63,29 +63,30 @@ RUN TEMP_TAR="$(mktemp)" \
 # USER ant
 # WORKDIR /home/ant
 
-RUN chown -R codespace:codespace /home/codespace/
-
-USER codespace
+# These do not sudo access to install
 
 ENV RUSTUP_HOME=/usr/local/rustup \
     CARGO_HOME=/usr/local/cargo \
-    PATH=/usr/local/cargo/bin:$PATH
-
+    PATH=/usr/local/cargo/bin:$PATH \
+    HOME=/home/codespace \
+    SHELL=/usr/bin/zsh
 RUN cargo install --locked broot exa starship navi fd-find
 
 RUN go install github.com/jesseduffield/lazygit@latest \
     && go install github.com/jesseduffield/lazydocker@latest
 
-# RUN git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions \
-#     && git clone --depth 1 https://github.com/agkozak/zsh-z ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-z \
-#     && git clone --depth 1 https://github.com/marlonrichert/zsh-autocomplete.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autocomplete
-
 RUN pipx install r2env \
     && r2env init \
     && r2env add radare2@git
 
-ENV HOME /home/ant
-ENV SHELL /usr/bin/zsh
+RUN chown -R codespace:codespace /home/codespace/
+# RUN chown -R codespace:codespace /workspaces/
+RUN chmod 755 /home/codespace/
+
+USER codespace
+
+WORKDIR /home/codespace
+
 # ARG USERNAME=codespace
 
 # RUN git clone --depth 1 https://github.com/NvChad/NvChad $HOME/.config/nvim
