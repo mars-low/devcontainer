@@ -17,7 +17,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y install screen \
     && apt-get -y install picocom minicom \
     && apt-get -y install tshark termshark \
-    && apt-get -y install ranger fzf bat ddgr neofetch peco \
+    && apt-get -y install fzf bat neofetch \
     && apt-get -y install asciinema \
     && apt-get -y install libevent-dev ncurses-dev build-essential bison pkg-config \
     && curl -LSfs https://raw.githubusercontent.com/cantino/mcfly/master/ci/install.sh | sh -s -- --git cantino/mcfly \
@@ -70,7 +70,7 @@ ENV RUSTUP_HOME=/usr/local/rustup \
     PATH=/usr/local/cargo/bin:$PATH \
     HOME=/home/codespace \
     SHELL=/usr/bin/zsh
-RUN cargo install --locked broot exa starship navi fd-find
+RUN cargo install --locked broot exa starship fd-find
 
 RUN go install github.com/jesseduffield/lazygit@latest \
     && go install github.com/jesseduffield/lazydocker@latest
