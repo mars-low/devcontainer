@@ -19,7 +19,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y install tshark termshark \
     && apt-get -y install fzf bat neofetch \
     && apt-get -y install asciinema \
-    && apt-get -y install telnet netcat \
+    && apt-get -y install telnet netcat gdb-multiarch \
     && apt-get -y install libevent-dev ncurses-dev build-essential bison pkg-config \
     && curl -LSfs https://raw.githubusercontent.com/cantino/mcfly/master/ci/install.sh | sh -s -- --git cantino/mcfly \
     && wget 'https://github.com/neovim/neovim/releases/download/v0.8.3/nvim-linux64.deb' \
@@ -70,8 +70,15 @@ RUN pipx install r2env \
     && r2env init \
     && r2env add radare2@git
 
+# RUN pipx install west
+
 RUN chown -R codespace:codespace /home/codespace/
 RUN chmod 755 /home/codespace/
+
+# RUN wget https://github.com/Kitware/CMake/releases/download/v3.25.2/cmake-3.25.2-linux-x86_64.sh \
+    # && chmod +x cmake-3.25.2-linux-x86_64.sh \
+    # && ./cmake-3.25.2-linux-x86_64.sh --skip-license --include-subdir \
+    # && rm -f cmake-3.25.2-linux-x86_64.sh
 
 USER codespace
 

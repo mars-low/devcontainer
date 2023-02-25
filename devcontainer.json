@@ -69,8 +69,8 @@
 		"source=codespaces-linux-var-lib-docker,target=/var/lib/docker,type=volume",
 		"source=${localEnv:HOME}/renode-hq,target=/home/codespace/renode-hq,type=bind,consistency=cached",
 		"source=${localEnv:HOME}/zephyrproject,target=/home/codespace/zephyrproject,type=bind,consistency=cached",
-		"source=${localEnv:HOME}/zephyr-sdk-0.15.0,target=/home/codespace/zephyr-sdk-0.15.0,type=bind,consistency=cached",
-		"source=${localEnv:HOME}/opentitan,target=/home/codespace/opentitan,type=bind,consistency=cached",
+		// "source=${localEnv:HOME}/zephyr-sdk-0.15.0,target=/home/codespace/zephyr-sdk-0.15.0,type=bind,consistency=cached",
+		// "source=${localEnv:HOME}/opentitan,target=/home/codespace/opentitan,type=bind,consistency=cached",
 	],
 
 	"runArgs": [
