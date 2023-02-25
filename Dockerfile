@@ -19,14 +19,15 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y install tshark termshark \
     && apt-get -y install fzf bat neofetch \
     && apt-get -y install asciinema \
+    && apt-get -y install telnet netcat \
     && apt-get -y install libevent-dev ncurses-dev build-essential bison pkg-config \
     && curl -LSfs https://raw.githubusercontent.com/cantino/mcfly/master/ci/install.sh | sh -s -- --git cantino/mcfly \
-    && wget 'https://github.com/neovim/neovim/releases/download/v0.7.2/nvim-linux64.deb' \
+    && wget 'https://github.com/neovim/neovim/releases/download/v0.8.3/nvim-linux64.deb' \
     && apt-get -y install ./nvim-linux64.deb && rm -f ./nvim-linux64.deb \
     && apt-get clean -y && rm -rf /var/lib/apt/lists/* /tmp/library-scripts
 
 RUN TEMP_DEB="$(mktemp)" \
-    && wget -O "$TEMP_DEB" 'https://github.com/dandavison/delta/releases/download/0.13.0/git-delta_0.13.0_amd64.deb' \
+    && wget -O "$TEMP_DEB" 'https://github.com/dandavison/delta/releases/download/0.15.1/git-delta_0.15.1_amd64.deb' \
     && dpkg -i "$TEMP_DEB" \
     && rm -f "$TEMP_DEB"
 
@@ -46,24 +47,14 @@ RUN TEMP_DEB="$(mktemp)" \
 
 RUN TEMP_TAR="$(mktemp)" \
     TEMP_TIG_DIR="$(mktemp -d)" \
-    && wget -O "$TEMP_TAR" 'https://github.com/jonas/tig/releases/download/tig-2.5.6/tig-2.5.6.tar.gz' \
+    && wget -O "$TEMP_TAR" 'https://github.com/jonas/tig/releases/download/tig-2.5.8/tig-2.5.8.tar.gz' \
     && tar -zxf "$TEMP_TAR" -C "$TEMP_TIG_DIR" \
     && cd "${TEMP_TIG_DIR}/tig-2.5.6" \
     && make prefix=/usr/local && make install prefix=/usr/local \
     && cd - \
     && rm -rf "$TEMP_TAR" "$TEMP_TIG_DIR"
 
-# RUN useradd -rm -d /home/ant -s /bin/bash -g root -G sudo -u 1001 ant
-# RUN useradd --create-home --shell /bin/bash
-# USER ant
-
-# RUN addgroup --system ant && useradd --create-home -g ant
-# RUN chown -R ant:ant /home/ant/
-# RUN echo 'ant  ALL=(ALL) /bin/su' >>  /etc/sudoers
-# USER ant
-# WORKDIR /home/ant
-
-# These do not sudo access to install
+# These do not need sudo access to install
 
 ENV RUSTUP_HOME=/usr/local/rustup \
     CARGO_HOME=/usr/local/cargo \
@@ -80,7 +71,6 @@ RUN pipx install r2env \
     && r2env add radare2@git
 
 RUN chown -R codespace:codespace /home/codespace/
-# RUN chown -R codespace:codespace /workspaces/
 RUN chmod 755 /home/codespace/
 
 USER codespace
@@ -89,18 +79,5 @@ WORKDIR /home/codespace
 
 # ARG USERNAME=codespace
 
-# RUN git clone --depth 1 https://github.com/NvChad/NvChad $HOME/.config/nvim
-
 ENV PATH="${PATH}:$HOME/.r2env/versions/radare2@git/bin/"
 
-# COPY --chown=codespace:codespace dotfiles/.zshrc $HOME/.zshrc
-# COPY --chown=codespace:codespace dotfiles/.tmux.conf $HOME/.tmux.conf
-# COPY --chown=codespace:codespace dotfiles/starship.toml $HOME/.config/starship.toml
-# COPY --chown=codespace:codespace dotfiles/nvchad_custom/ $HOME/.config/nvim/lua/custom/
-
-
-# RUN SNIPPET="export PROMPT_COMMAND='history -a' && export HISTFILE=/commandhistory/.zsh_history" \
-#     && sudo mkdir /commandhistory \
-#     && sudo touch /commandhistory/.zsh_history \
-#     && sudo chown -R $USERNAME /commandhistory \
-#     && echo "$SNIPPET" >> "/home/$USERNAME/.zshhrc"
