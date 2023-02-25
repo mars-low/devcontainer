@@ -7,59 +7,62 @@
 		"dockerfile": "Dockerfile"
 	},
 
-	// // Configure tool-specific properties.
-	// "customizations": {
-	// 	// Configure properties specific to VS Code.
-	// 	"vscode": {
-	// 		// Set *default* container specific settings.json values on container create.
-	// 		"settings": { 
-	// 			"go.toolsManagement.checkForUpdates": "local",
-	// 			"go.useLanguageServer": true,
-	// 			"go.gopath": "/go",
-	// 			"python.defaultInterpreterPath": "/opt/python/latest/bin/python",
-	// 			"python.linting.enabled": true,
-	// 			"python.linting.pylintEnabled": true,
-	// 			"python.formatting.autopep8Path": "/usr/local/py-utils/bin/autopep8",
-	// 			"python.formatting.blackPath": "/usr/local/py-utils/bin/black",
-	// 			"python.formatting.yapfPath": "/usr/local/py-utils/bin/yapf",
-	// 			"python.linting.banditPath": "/usr/local/py-utils/bin/bandit",
-	// 			"python.linting.flake8Path": "/usr/local/py-utils/bin/flake8",
-	// 			"python.linting.mypyPath": "/usr/local/py-utils/bin/mypy",
-	// 			"python.linting.pycodestylePath": "/usr/local/py-utils/bin/pycodestyle",
-	// 			"python.linting.pydocstylePath": "/usr/local/py-utils/bin/pydocstyle",
-	// 			"python.linting.pylintPath": "/usr/local/py-utils/bin/pylint",
-	// 			"lldb.executable": "/usr/bin/lldb",
-	// 			"files.watcherExclude": {
-	// 				"**/target/**": true
-	// 			},
-	// 			"terminal.integrated.defaultProfile.linux": "zsh",
-	// 			"terminal.integrated.profiles.linux": {
-	// 				"tmux": {
-	// 					"path": "/usr/local/bin/tmux",
-	// 					"args": [
-	// 						"new-session",
-	// 						"-A",
-	// 						"-s",
-	// 						"main"
-	// 					]
-	// 				}
-	// 			},
-	// 			"terminal.integrated.automationProfile.linux": {
-	// 				"path": "/usr/bin/zsh"
-	// 			}
-	// 		},
+	// Configure tool-specific properties.
+	"customizations": {
+	 	// Configure properties specific to VS Code.
+		"vscode": {
+	 		// Set *default* container specific settings.json values on container create.
+			"settings": { 
+
+			},
 			
-	// 		// Add the IDs of extensions you want installed when the container is created.
-	// 		"extensions": [
-	// 			"ms-vscode.cpptools",
-	// 			"ms-dotnettools.csharp",
-	// 			"GitHub.vscode-pull-request-github",
-	// 			"eamodio.gitlens",
-	// 			"ms-vscode.mono-debug",
-	// 			"ms-python.python",
-	// 		]
-	// 	}
-	// },
+			// Add the IDs of extensions you want installed when the container is created.
+			"extensions": [
+				"ms-vscode.cpptools",
+				"ms-dotnettools.csharp",
+				"twxs.cmake",
+				"ms-vscode.cmake-tools",
+				"marus25.cortex-debug",
+				"nia40m.display-nums",
+				"ms-azuretools.vscode-docker",
+				"GitHub.copilot",
+				"GitHub.vscode-pull-request-github",
+				"eamodio.gitlens",
+				"ms-vscode.hexeditor",
+				"icsharpcode.ilspy-vscode",
+				"ms-python.isort",
+				"mcu-debug.memory-view",
+				"ms-vscode.mono-debug",
+				"webfreak.debug",
+				"ryu1kn.partial-diff",
+				"ms-python.vscode-pylance",
+				"ms-python.python",
+				"robocorp.robotframework-lsp",
+				"mcu-debug.rtos-views",
+				"timonwong.shellcheck",
+				"redhat.vscode-xml",
+				"ms-dotnettools.vscode-dotnet-runtime",
+				"mike-lischke.vscode-antlr4",
+				"rogalmic.bash-debug",
+				"vadimcn.vscode-lldb",
+				"ms-vscode.vscode-embedded-tools",
+				"usernamehw.errorlens",
+				"cschleiden.vscode-github-actions",
+				"VisualStudioExptTeam.vscodeintellicode",
+				"VisualStudioExptTeam.intellicode-api-usage-examples",
+				"ms-toolsai.jupyter",
+				"ms-toolsai.vscode-jupyter-cell-tags",
+				"ms-toolsai.jupyter-renderers",
+				"ms-toolsai.vscode-jupyter-slideshow",
+				"ms-vscode.makefile-tools",
+				"tintoy.msbuild-project-tools",
+				"nordic-semiconductor.nrf-devicetree",
+				"nordic-semiconductor.nrf-kconfig",
+				"ms-dotnettools.dotnet-interactive-vscode",
+				"trond-snekvik.simple-rst",
+			]
+		}
+	},
 
 	"remoteUser": "codespace",
 
@@ -68,7 +71,7 @@
 	"mounts": [
 		"source=codespaces-linux-var-lib-docker,target=/var/lib/docker,type=volume",
 		"source=${localEnv:HOME}/renode-hq,target=/home/codespace/renode-hq,type=bind,consistency=cached",
-		"source=${localEnv:HOME}/zephyrproject,target=/home/codespace/zephyrproject,type=bind,consistency=cached",
+		"source=/workdir,target=/workdir,type=bind,consistency=cached",
 		// "source=${localEnv:HOME}/zephyr-sdk-0.15.0,target=/home/codespace/zephyr-sdk-0.15.0,type=bind,consistency=cached",
 		// "source=${localEnv:HOME}/opentitan,target=/home/codespace/opentitan,type=bind,consistency=cached",
 	],
