@@ -27,7 +27,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get clean -y && rm -rf /var/lib/apt/lists/* /tmp/library-scripts
 
 RUN TEMP_DEB="$(mktemp)" \
-    && wget -O "$TEMP_DEB" 'https://github.com/dandavison/delta/releases/download/0.15.1/git-delta_0.15.1_amd64.deb' \
+    && wget -O "$TEMP_DEB" 'https://github.com/dandavison/delta/releases/download/0.13.0/git-delta_0.13.0_amd64.deb' \
     && dpkg -i "$TEMP_DEB" \
     && rm -f "$TEMP_DEB"
 
@@ -70,7 +70,7 @@ RUN pipx install r2env \
     && r2env init \
     && r2env add radare2@git
 
-# RUN pipx install west
+RUN pipx install gdbgui
 
 RUN chown -R codespace:codespace /home/codespace/
 RUN chmod 755 /home/codespace/
