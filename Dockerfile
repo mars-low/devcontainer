@@ -49,7 +49,7 @@ RUN TEMP_TAR="$(mktemp)" \
     TEMP_TIG_DIR="$(mktemp -d)" \
     && wget -O "$TEMP_TAR" 'https://github.com/jonas/tig/releases/download/tig-2.5.8/tig-2.5.8.tar.gz' \
     && tar -zxf "$TEMP_TAR" -C "$TEMP_TIG_DIR" \
-    && cd "${TEMP_TIG_DIR}/tig-2.5.6" \
+    && cd "${TEMP_TIG_DIR}/tig-2.5.8" \
     && make prefix=/usr/local && make install prefix=/usr/local \
     && cd - \
     && rm -rf "$TEMP_TAR" "$TEMP_TIG_DIR"
