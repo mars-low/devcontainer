@@ -1,98 +1,150 @@
-// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
-// https://github.com/microsoft/vscode-dev-containers/tree/v0.245.0/containers/codespaces-linux
 {
-	"name": "Codespace",
+    "build": {
+        "dockerfile": "./Dockerfile",
+        "context": "."
+    },
+    "features": {
+        "ghcr.io/devcontainers/features/common-utils:2": {
+            "username": "codespace",
+            "userUid": "1000",
+            "userGid": "1000"
+        },
+        "ghcr.io/devcontainers/features/dotnet:1": {
+            "version": "7.0.306",
+            "installUsingApt": "false",
+            "additionalVersions": "6"
+        },
+        "ghcr.io/devcontainers/features/hugo:1": {
+            "version": "latest"
+        },
+        "ghcr.io/devcontainers/features/node:1": {
+            "version": "20",
+            "additionalVersions": "18"
+        },
+        "./local-features/nvs": "latest",
+        "ghcr.io/devcontainers/features/python:1": {
+            "version": "3.10.13",
+            "additionalVersions": "3.9.18",
+            "installJupyterlab": "true",
+            "configureJupyterlabAllowOrigin": "*",
+            "useOryxIfAvailable": "false"
+        },
+        "./local-features/machine-learning-packages": "latest",
+        "ghcr.io/devcontainers/features/php:1": {
+            "version": "8.3.0",
+            "additionalVersions": "8.2.13",
+            "installComposer": "true"
+        },
+        "ghcr.io/devcontainers/features/conda:1": {
+            "version": "latest"
+        },
+        "ghcr.io/devcontainers/features/ruby:1": {
+            "version": "3.2",
+            "additionalVersions": "3.1"
+        },
+        "ghcr.io/devcontainers/features/java:1": {
+            "version": "21",
+            "additionalVersions": "17",
+            "installGradle": "true",
+            "installMaven": "true"
+        },
+        "ghcr.io/devcontainers/features/sshd:1": {
+            "version": "latest"
+        },
+        "ghcr.io/devcontainers/features/git:1": {
+            "version": "latest",
+            "ppa": "false"
+        },
+        "ghcr.io/devcontainers/features/git-lfs:1": {
+            "version": "latest"
+        },
+        "ghcr.io/devcontainers/features/github-cli:1": {
+            "version": "latest"
+        },
+        "ghcr.io/devcontainers/features/docker-in-docker:2": {
+            "version": "latest"
+        },
+        "ghcr.io/devcontainers/features/kubectl-helm-minikube:1": {
+            "version": "latest"
+        },
+        "ghcr.io/devcontainers/features/go:1": {
+            "version": "latest"
+        },
+        "./local-features/jekyll": "latest",
+        "ghcr.io/devcontainers/features/oryx:1": "latest",
+        "./local-features/setup-user": "latest",
+        "./local-features/patch-python": {},
+        "./local-features/patch-conda": {}
+    },
+    "overrideFeatureInstallOrder": [
+        "ghcr.io/devcontainers/features/common-utils",
+        "ghcr.io/devcontainers/features/git",
+        "ghcr.io/devcontainers/features/dotnet",
+        "ghcr.io/devcontainers/features/hugo",
+        "ghcr.io/devcontainers/features/node",
+        "./local-features/nvs",
+        "ghcr.io/devcontainers/features/conda",
+        "./local-features/patch-conda",
+        "ghcr.io/devcontainers/features/python",
+        "./local-features/patch-python",
+        "./local-features/machine-learning-packages",
+        "ghcr.io/devcontainers/features/php",
+        "ghcr.io/devcontainers/features/ruby",
+        "ghcr.io/devcontainers/features/java",
+        "ghcr.io/devcontainers/features/sshd",
+        "ghcr.io/devcontainers/features/git-lfs",
+        "ghcr.io/devcontainers/features/github-cli",
+        "ghcr.io/devcontainers/features/docker-in-docker",
+        "ghcr.io/devcontainers/features/kubectl-helm-minikube",
+        "ghcr.io/devcontainers/features/go",
+        "./local-features/jekyll",
+        "ghcr.io/devcontainers/features/oryx",
+        "./local-features/setup-user"
+    ],
+    "remoteUser": "codespace",
+    "containerUser": "codespace",
 
-	"build": {
-		"dockerfile": "Dockerfile"
-	},
+    // Use 'forwardPorts' to make a list of ports inside the container available locally.
+    // "forwardPorts": [],
 
-	// Configure tool-specific properties.
-	"customizations": {
-	 	// Configure properties specific to VS Code.
-		"vscode": {
-	 		// Set *default* container specific settings.json values on container create.
-			"settings": { 
-
-			},
-			
-			// Add the IDs of extensions you want installed when the container is created.
-			"extensions": [
-				"ms-vscode.cpptools",
-				"ms-dotnettools.csharp",
-				"twxs.cmake",
-				"ms-vscode.cmake-tools",
-				"marus25.cortex-debug",
-				"nia40m.display-nums",
-				"ms-azuretools.vscode-docker",
-				"GitHub.copilot",
-				"GitHub.vscode-pull-request-github",
-				"eamodio.gitlens",
-				"ms-vscode.hexeditor",
-				"icsharpcode.ilspy-vscode",
-				"ms-python.isort",
-				"mcu-debug.memory-view",
-				"ms-vscode.mono-debug",
-				"webfreak.debug",
-				"ryu1kn.partial-diff",
-				"ms-python.vscode-pylance",
-				"ms-python.python",
-				"robocorp.robotframework-lsp",
-				"mcu-debug.rtos-views",
-				"timonwong.shellcheck",
-				"redhat.vscode-xml",
-				"ms-dotnettools.vscode-dotnet-runtime",
-				"mike-lischke.vscode-antlr4",
-				"rogalmic.bash-debug",
-				"vadimcn.vscode-lldb",
-				"ms-vscode.vscode-embedded-tools",
-				"usernamehw.errorlens",
-				"cschleiden.vscode-github-actions",
-				"VisualStudioExptTeam.vscodeintellicode",
-				"VisualStudioExptTeam.intellicode-api-usage-examples",
-				"ms-toolsai.jupyter",
-				"ms-toolsai.vscode-jupyter-cell-tags",
-				"ms-toolsai.jupyter-renderers",
-				"ms-toolsai.vscode-jupyter-slideshow",
-				"ms-vscode.makefile-tools",
-				"tintoy.msbuild-project-tools",
-				"nordic-semiconductor.nrf-devicetree",
-				"nordic-semiconductor.nrf-kconfig",
-				"ms-dotnettools.dotnet-interactive-vscode",
-				"trond-snekvik.simple-rst",
-			]
-		}
-	},
-
-	"remoteUser": "codespace",
-
-	"overrideCommand": false,
-
-	"mounts": [
-		"source=codespaces-linux-var-lib-docker,target=/var/lib/docker,type=volume",
-		"source=${localEnv:HOME}/renode-hq,target=/home/codespace/renode-hq,type=bind,consistency=cached",
-		"source=/workdir,target=/workdir,type=bind,consistency=cached",
-		// "source=${localEnv:HOME}/zephyr-sdk-0.15.0,target=/home/codespace/zephyr-sdk-0.15.0,type=bind,consistency=cached",
-		// "source=${localEnv:HOME}/opentitan,target=/home/codespace/opentitan,type=bind,consistency=cached",
-	],
-
-	"runArgs": [
-		"--cap-add=SYS_PTRACE",
-		"--security-opt",
-		"seccomp=unconfined",
-		"--privileged",
-		"--init",
-		// "--add-host=host.docker.internal:host-gateway"
-	],
-	
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
-	
-	"workspaceFolder": "/home/codespace",
-	// "workspaceMount": "source=${localWorkspaceFolder}/sub-folder,target=/home/ant,type=bind,consistency=cached",
-
-	// "oryx build" will automatically install your dependencies and attempt to build your project
-	"postCreateCommand": "sudo oryx build -p virtualenv_name=.venv --log-file /tmp/oryx-build.log --manifest-dir /tmp || echo 'Could not auto-build. Skipping.'",
-	"postStartCommand": "cd && sh -c \"$(curl -fsLS https://chezmoi.io/get)\" && export PATH=$PATH:$HOME/bin && chezmoi init --apply mars-low",
-	// "postAttachCommand": "exec zsh"
+    // Configure tool-specific properties.
+    "customizations": {
+        // Configure properties specific to VS Code.
+        "vscode": {
+            // Set *default* container specific settings.json values on container create.
+            "settings": {
+                "go.toolsManagement.checkForUpdates": "local",
+                "go.useLanguageServer": true,
+                "go.gopath": "/go",
+                "python.defaultInterpreterPath": "/home/codespace/.python/current/bin/python3",
+                "jupyter.kernels.filter": [
+                    {
+                        "path": "/opt/conda/bin/python",
+                        "type": "pythonEnvironment"
+                    },
+                    {
+                        "path": "/usr/local/python/current/bin/python3",
+                        "type": "pythonEnvironment"
+                    },
+                    {
+                        "path": "/usr/local/python/current/bin/python",
+                        "type": "pythonEnvironment"
+                    },
+                    {
+                        "path": "/usr/bin/python3",
+                        "type": "pythonEnvironment"
+                    },
+                    {
+                        "path": "/bin/python3",
+                        "type": "pythonEnvironment"
+                    }
+                ],
+                "lldb.executable": "/usr/bin/lldb"
+            },
+            // Add the IDs of extensions you want installed when the container is created.
+            "extensions": [
+                "GitHub.vscode-pull-request-github"
+            ]
+        }
+    }
 }
