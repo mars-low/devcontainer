@@ -8,31 +8,23 @@ FROM debian:bookworm
 ENV LANG="C.UTF-8"
 
 # Install basic build tools
-RUN export DEBIAN_FRONTEND=noninteractive \
-    && apt-get update \
+RUN apt-get update \
     && apt-get upgrade -y \
-    && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y \
         make \
         unzip \
-        # The tools in this package are used when installing packages for Python
         build-essential \
         swig3.0 \
-        # Required for Microsoft SQL Server
         unixodbc-dev \
-        # Required for PostgreSQL
         libpq-dev \
-        # Required for mysqlclient
         default-libmysqlclient-dev \
-        # Required for ts
         moreutils \
         rsync \
         zip \
         libgdiplus \
         jq \
-        # By default pip is not available in the buildpacks image
         python-pip-whl \
         python3-pip \
-        #.NET Core related pre-requisites
         libc6 \
         libgcc1 \
         libgssapi-krb5-2 \
