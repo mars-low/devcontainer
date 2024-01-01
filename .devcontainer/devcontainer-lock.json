@@ -60,11 +60,6 @@
       "resolved": "ghcr.io/devcontainers/features/node@sha256:7d31b83459dd5110c37e7f5acb2920335cb1e5ebf014326d7eb6a0b290cc820a",
       "integrity": "sha256:7d31b83459dd5110c37e7f5acb2920335cb1e5ebf014326d7eb6a0b290cc820a"
     },
-    "ghcr.io/devcontainers/features/oryx:1": {
-      "version": "1.1.0",
-      "resolved": "ghcr.io/devcontainers/features/oryx@sha256:c83715c52f96077e3ba3a0ef986b76c6faba5bbc5d08935627bc61a579613176",
-      "integrity": "sha256:c83715c52f96077e3ba3a0ef986b76c6faba5bbc5d08935627bc61a579613176"
-    },
     "ghcr.io/devcontainers/features/php:1": {
       "version": "1.1.2",
       "resolved": "ghcr.io/devcontainers/features/php@sha256:0b4a3f718d609b04c281216e5f4766a41ee9724dbfca5473ec4f435d7c6718f7",
