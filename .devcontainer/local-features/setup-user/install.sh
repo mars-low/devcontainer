@@ -29,14 +29,6 @@ sudo_if() {
     fi
 }
 
-# Enables the oryx tool to generate manifest-dir which is needed for running the postcreate tool
-DEBIAN_FLAVOR="focal-scm"
-mkdir -p /opt/oryx && echo "vso-focal" > /opt/oryx/.imagetype
-echo "DEBIAN|${DEBIAN_FLAVOR}" | tr '[a-z]' '[A-Z]' > /opt/oryx/.ostype
-
-# Oryx expects the tool to be installed at `/opt/oryx` and looks for relevant files in there.
-ln -snf /usr/local/oryx/* /opt/oryx
-
 # For the universal image, oryx build tool installs the detected platforms in /home/codespace/*. Hence, linking current platforms to the /home/codespace/ path and adding it to the PATH.
 # This ensures that whatever platfornm versions oryx detects and installs are set as root.
 NODE_PATH="/home/codespace/nvm/current"
@@ -79,7 +71,6 @@ chmod -R g+r+w "${HOME_DIR}"
 find "${HOME_DIR}" -type d | xargs -n 1 chmod g+s
 
 OPT_DIR="/opt/"
-chown -R ${USERNAME}:oryx ${OPT_DIR}
 chmod -R g+r+w "${OPT_DIR}"
 find "${OPT_DIR}" -type d | xargs -n 1 chmod g+s
 
